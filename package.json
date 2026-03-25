@@ -2,6 +2,10 @@
   "name": "baseboard",
   "version": "0.1.0",
   "description": "Lightweight out-of-band server management console",
+  "author": {
+    "name": "Bicom Systems",
+    "email": "support@bicomsystems.com"
+  },
   "main": "dist/main/index.js",
   "type": "module",
   "scripts": {
