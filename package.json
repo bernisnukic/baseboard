@@ -1,0 +1,56 @@
+{
+  "name": "baseboard",
+  "version": "0.1.0",
+  "description": "Lightweight out-of-band server management console",
+  "main": "dist/main/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "electron-vite dev -- --no-sandbox",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "package": "electron-vite build && electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "appId": "com.bicomsystems.baseboard",
+    "productName": "Baseboard",
+    "copyright": "Copyright © 2025 Bicom Systems",
+    "files": [
+      "dist/**/*",
+      "resources/**/*"
+    ],
+    "directories": {
+      "output": "out"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Utility",
+      "icon": "resources/icon.png"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "resources/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "resources/icon.icns",
+      "category": "public.app-category.utilities"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false
+    }
+  },
+  "dependencies": {
+    "socks": "^2.8.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/ws": "^8.5.0",
+    "electron": "^34.0.0",
+    "electron-builder": "^25.0.0",
+    "electron-vite": "^3.0.0",
+    "typescript": "^5.7.0"
+  }
+}

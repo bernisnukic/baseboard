@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' ws://127.0.0.1:*; script-src 'self'; style-src 'self' 'unsafe-inline'; frame-src *">
+  <title>Baseboard</title>
+</head>
+<body>
+  <div id="app">
+    <nav id="nav">
+      <div class="nav-brand" data-link="#/">Baseboard</div>
+      <div class="nav-actions">
+        <button class="btn btn-primary btn-sm" data-link="#/server/new">+ Add Server</button>
+      </div>
+    </nav>
+    <div id="main-area">
+      <div id="tab-bar"></div>
+      <div id="tab-panels"></div>
+      <main id="content"></main>
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

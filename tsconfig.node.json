@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "lib": ["ESNext"],
+    "types": ["node"]
+  },
+  "include": ["electron/**/*"]
+}
