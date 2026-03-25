@@ -24,16 +24,13 @@
     },
     "linux": {
       "target": ["AppImage", "deb"],
-      "category": "Utility",
-      "icon": "resources/icon.png"
+      "category": "Utility"
     },
     "win": {
-      "target": "nsis",
-      "icon": "resources/icon.ico"
+      "target": "nsis"
     },
     "mac": {
       "target": "dmg",
-      "icon": "resources/icon.icns",
       "category": "public.app-category.utilities"
     },
     "nsis": {
