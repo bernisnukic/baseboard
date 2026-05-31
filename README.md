@@ -190,9 +190,6 @@ npm version patch        # bump version + create the tag
 git push --follow-tags   # CI builds all three platforms and publishes
 ```
 
-The packaged app is hardened with [Electron fuses](https://www.electronjs.org/docs/latest/tutorial/fuses)
-(`runAsNode` off, `NODE_OPTIONS`/inspector disabled, load-app-from-asar only).
-
 ## Security notes
 
 - **Self-signed certificates are accepted.** BMCs almost universally ship

@@ -54,12 +54,6 @@
     "directories": {
       "output": "out"
     },
-    "electronFuses": {
-      "runAsNode": false,
-      "enableNodeOptionsEnvironmentVariable": false,
-      "enableNodeCliInspectArguments": false,
-      "onlyLoadAppFromAsar": true
-    },
     "mac": {
       "target": [
         { "target": "dmg", "arch": ["arm64", "x64"] }
