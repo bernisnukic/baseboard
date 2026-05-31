@@ -11,12 +11,16 @@ async function ipmitool(server: ServerConfig, password: string, args: string[]):
     '-H', server.host,
     '-p', String(server.port || 623),
     '-U', server.username,
-    '-P', password,
+    '-E', // read password from IPMI_PASSWORD env var instead of argv, so it
+          // never appears in the host's process list (/proc/<pid>/cmdline)
     ...args
   ]
 
   try {
-    const { stdout } = await execFileAsync('ipmitool', baseArgs, { timeout: 15000 })
+    const { stdout } = await execFileAsync('ipmitool', baseArgs, {
+      timeout: 15000,
+      env: { ...process.env, IPMI_PASSWORD: password },
+    })
     return stdout
   } catch (err: any) {
     if (err.code === 'ENOENT') {
