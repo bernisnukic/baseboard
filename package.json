@@ -34,6 +34,7 @@
   "scripts": {
     "dev": "electron-vite dev -- --no-sandbox",
     "build": "electron-vite build",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
     "preview": "electron-vite preview",
     "package": "electron-vite build && electron-builder --publish never",
     "package:mac": "electron-vite build && electron-builder --mac --publish never",
