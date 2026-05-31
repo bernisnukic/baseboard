@@ -1,6 +1,6 @@
 {
   "name": "baseboard",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lightweight out-of-band server management console for IPMI, Lenovo IMM2, Dell iDRAC and Supermicro BMCs",
   "license": "MIT",
   "author": {
