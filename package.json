@@ -1,24 +1,51 @@
 {
   "name": "baseboard",
   "version": "0.1.0",
-  "description": "Lightweight out-of-band server management console",
+  "description": "Lightweight out-of-band server management console for IPMI, Lenovo IMM2, Dell iDRAC and Supermicro BMCs",
+  "license": "MIT",
   "author": {
-    "name": "Bicom Systems",
-    "email": "support@bicomsystems.com"
+    "name": "Bernis Nukić",
+    "email": "bernis@bernisnukic.com"
   },
+  "homepage": "https://github.com/bernisnukic/baseboard#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bernisnukic/baseboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bernisnukic/baseboard/issues"
+  },
+  "keywords": [
+    "ipmi",
+    "bmc",
+    "imm2",
+    "idrac",
+    "supermicro",
+    "kvm",
+    "vnc",
+    "novnc",
+    "out-of-band",
+    "server-management",
+    "electron",
+    "desktop"
+  ],
   "main": "dist/main/index.js",
   "type": "module",
   "scripts": {
     "dev": "electron-vite dev -- --no-sandbox",
     "build": "electron-vite build",
     "preview": "electron-vite preview",
-    "package": "electron-vite build && electron-builder",
+    "package": "electron-vite build && electron-builder --publish never",
+    "package:mac": "electron-vite build && electron-builder --mac --publish never",
+    "package:win": "electron-vite build && electron-builder --win --publish never",
+    "package:linux": "electron-vite build && electron-builder --linux --publish never",
     "postinstall": "electron-builder install-app-deps"
   },
   "build": {
-    "appId": "com.bicomsystems.baseboard",
+    "appId": "com.bernisnukic.baseboard",
     "productName": "Baseboard",
-    "copyright": "Copyright © 2025 Bicom Systems",
+    "copyright": "Copyright © 2026 Bernis Nukić",
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
     "files": [
       "dist/**/*",
       "resources/**/*"
@@ -26,20 +53,29 @@
     "directories": {
       "output": "out"
     },
-    "linux": {
-      "target": ["AppImage", "deb"],
-      "category": "Utility"
+    "electronFuses": {
+      "runAsNode": false,
+      "enableNodeOptionsEnvironmentVariable": false,
+      "enableNodeCliInspectArguments": false,
+      "onlyLoadAppFromAsar": true
+    },
+    "mac": {
+      "target": [
+        { "target": "dmg", "arch": ["arm64", "x64"] }
+      ],
+      "category": "public.app-category.utilities"
     },
     "win": {
       "target": "nsis"
     },
-    "mac": {
-      "target": "dmg",
-      "category": "public.app-category.utilities"
-    },
     "nsis": {
       "oneClick": true,
       "perMachine": false
+    },
+    "linux": {
+      "target": ["AppImage", "deb", "rpm"],
+      "category": "Utility",
+      "maintainer": "Bernis Nukić <bernis@bernisnukic.com>"
     }
   },
   "dependencies": {

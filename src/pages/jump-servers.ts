@@ -23,11 +23,11 @@ export function renderJumpServers(container: HTMLElement): void {
   const formCard = el('div', { className: 'card', style: 'margin-top:16px' },
     el('h3', { style: 'margin-bottom:12px;font-size:14px' }, 'Add Jump Server')
   )
-  const nameInput = el('input', { type: 'text', placeholder: 'e.g. Bicom Jump' }) as HTMLInputElement
-  const hostInput = el('input', { type: 'text', placeholder: '185.59.93.56' }) as HTMLInputElement
+  const nameInput = el('input', { type: 'text', placeholder: 'e.g. Bastion' }) as HTMLInputElement
+  const hostInput = el('input', { type: 'text', placeholder: 'bastion.example.com' }) as HTMLInputElement
   const portInput = el('input', { type: 'number', placeholder: '22' }) as HTMLInputElement
   portInput.value = '22'
-  const userInput = el('input', { type: 'text', placeholder: 'bernisn' }) as HTMLInputElement
+  const userInput = el('input', { type: 'text', placeholder: 'admin' }) as HTMLInputElement
 
   formCard.appendChild(el('div', { className: 'form-row' },
     el('div', { className: 'form-group' }, el('label', {}, 'Name'), nameInput),

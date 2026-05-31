@@ -4,22 +4,21 @@ on:
   push:
     tags:
       - 'v*'
-
-permissions:
-  contents: write
+  workflow_dispatch: # allow manual build runs without cutting a release
 
 jobs:
   build:
+    name: Build ${{ matrix.platform }}
     strategy:
+      fail-fast: false # one platform failing shouldn't cancel the others
       matrix:
         include:
-          - os: ubuntu-latest
-            artifact: linux
-          - os: windows-latest
-            artifact: win
           - os: macos-latest
-            artifact: mac
-
+            platform: macOS
+          - os: windows-latest
+            platform: Windows
+          - os: ubuntu-latest
+            platform: Linux
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -27,33 +26,68 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22 # LTS; matches the local toolchain
+          cache: npm
+
+      # electron-builder needs the `rpm` binary to produce .rpm packages.
+      - name: Install Linux packaging tools
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y rpm
 
       - name: Install dependencies
         run: npm ci
 
+      # Builds for the host OS (mac builds arm64 + x64, linux builds AppImage/deb/rpm,
+      # win builds the NSIS installer). --publish never keeps publishing in the release job.
       - name: Build and package
         run: npm run package
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # No Apple Developer certificate: electron-builder ad-hoc signs the
+          # macOS arm64 app so it launches (users still right-click → Open once).
           CSC_IDENTITY_AUTO_DISCOVERY: false
 
-      - name: Upload Linux artifacts
-        if: matrix.os == 'ubuntu-latest'
-        uses: softprops/action-gh-release@v2
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
         with:
-          files: |
+          name: baseboard-${{ matrix.platform }}
+          path: |
+            out/*.dmg
+            out/*.exe
             out/*.AppImage
             out/*.deb
+            out/*.rpm
+          if-no-files-found: error
 
-      - name: Upload Windows artifacts
-        if: matrix.os == 'windows-latest'
+  release:
+    name: Publish release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/') # only publish on version tags
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: out/*.exe
+          files: artifacts/**/*
+          generate_release_notes: true
+          body: |
+            ## 📥 Downloads
 
-      - name: Upload macOS artifacts
-        if: matrix.os == 'macos-latest'
-        uses: softprops/action-gh-release@v2
-        with:
-          files: out/*.dmg
+            | OS | File | Install |
+            |----|------|---------|
+            | 🍎 macOS (Apple Silicon) | `*-mac-arm64.dmg` | Open the DMG, drag **Baseboard** to Applications. First launch: **right-click → Open** (unsigned build). |
+            | 🍎 macOS (Intel) | `*-mac-x64.dmg` | Same as above. |
+            | 🪟 Windows | `*-win-x64.exe` | Run the installer. On SmartScreen: **More info → Run anyway**. |
+            | 🐧 Linux (portable) | `*-linux-x64.AppImage` | `chmod +x` the file, then run it. |
+            | 🐧 Linux (Debian/Ubuntu) | `*-linux-x64.deb` | `sudo dpkg -i Baseboard-*.deb` |
+            | 🐧 Linux (Fedora/RHEL) | `*-linux-x64.rpm` | `sudo rpm -i Baseboard-*.rpm` |
+
+            > Baseboard shells out to **`ipmitool`** (IPMI/Supermicro) and **`ssh`** (SSH-jump tunneling) — make sure they're installed and on your `PATH`.
+            >
+            > Builds are **unsigned** (ad-hoc on macOS), so your OS will warn on first launch.
