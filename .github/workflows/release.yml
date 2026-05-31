@@ -84,9 +84,9 @@ jobs:
             | 🍎 macOS (Apple Silicon) | `*-mac-arm64.dmg` | Open the DMG, drag **Baseboard** to Applications. First launch: **right-click → Open** (unsigned build). |
             | 🍎 macOS (Intel) | `*-mac-x64.dmg` | Same as above. |
             | 🪟 Windows | `*-win-x64.exe` | Run the installer. On SmartScreen: **More info → Run anyway**. |
-            | 🐧 Linux (portable) | `*-linux-x64.AppImage` | `chmod +x` the file, then run it. |
-            | 🐧 Linux (Debian/Ubuntu) | `*-linux-x64.deb` | `sudo dpkg -i Baseboard-*.deb` |
-            | 🐧 Linux (Fedora/RHEL) | `*-linux-x64.rpm` | `sudo rpm -i Baseboard-*.rpm` |
+            | 🐧 Linux (portable) | `*-linux-x86_64.AppImage` | `chmod +x` the file, then run it. |
+            | 🐧 Linux (Debian/Ubuntu) | `*-linux-amd64.deb` | `sudo dpkg -i Baseboard-*.deb` |
+            | 🐧 Linux (Fedora/RHEL) | `*-linux-x86_64.rpm` | `sudo rpm -i Baseboard-*.rpm` |
 
             > Baseboard shells out to **`ipmitool`** (IPMI/Supermicro) and **`ssh`** (SSH-jump tunneling) — make sure they're installed and on your `PATH`.
             >
