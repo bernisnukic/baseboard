@@ -12,9 +12,7 @@ isolated management networks — from one cross-platform desktop app.
 ![Electron](https://img.shields.io/badge/Electron-34-47848F?logo=electron&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white)
 
-<!-- Add a hero screenshot here once captured, e.g.:
 ![Baseboard dashboard](docs/screenshots/dashboard.png)
--->
 
 </div>
 
@@ -64,6 +62,12 @@ at rest and SSH/SOCKS tunneling handled for you.
 
 > IMM2 has the most complete data integration; iDRAC reuses the same
 > web-console path.
+
+## Screenshots
+
+| Server detail — power control, sensors, event log & FRU inventory | Add a server — type, credentials, SSH-jump proxy & projects |
+|:---:|:---:|
+| [![Server detail](docs/screenshots/server-detail.png)](docs/screenshots/server-detail.png) | [![Add server](docs/screenshots/add-server.png)](docs/screenshots/add-server.png) |
 
 ## How it works
 
