@@ -54,9 +54,21 @@
     "directories": {
       "output": "out"
     },
+    "electronFuses": {
+      "runAsNode": false,
+      "enableNodeOptionsEnvironmentVariable": false,
+      "enableNodeCliInspectArguments": false,
+      "onlyLoadAppFromAsar": true
+    },
     "mac": {
       "target": [
-        { "target": "dmg", "arch": ["arm64", "x64"] }
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
       ],
       "category": "public.app-category.utilities"
     },
@@ -68,21 +80,25 @@
       "perMachine": false
     },
     "linux": {
-      "target": ["AppImage", "deb", "rpm"],
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm"
+      ],
       "category": "Utility",
       "maintainer": "Bernis Nukić <bernis@bernisnukic.com>"
     }
   },
   "dependencies": {
-    "socks": "^2.8.0",
-    "ws": "^8.18.0"
+    "socks": "^2.8.9",
+    "ws": "^8.21.0"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
-    "@types/ws": "^8.5.0",
-    "electron": "^34.0.0",
-    "electron-builder": "^25.0.0",
-    "electron-vite": "^3.0.0",
-    "typescript": "^5.7.0"
+    "@types/node": "^25.9.1",
+    "@types/ws": "^8.18.1",
+    "electron": "^42.3.0",
+    "electron-builder": "^26.8.1",
+    "electron-vite": "^5.0.0",
+    "typescript": "^6.0.3"
   }
 }
